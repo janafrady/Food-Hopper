@@ -1,7 +1,6 @@
 <?php
-// ============================================================
 // index.php  –  Food Hopper Homepage
-// ============================================================
+
 session_start();
 require_once 'php/db.php';
 require_once 'php/auth.php';
