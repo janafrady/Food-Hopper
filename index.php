@@ -21,7 +21,7 @@ $error       = $_GET['error'] ?? '';
 </head>
 <body>
 
-<!-- NAVIGATION -->
+<!-- Navigation -->
 <nav>
   <a class="brand" href="index.php">🍔 Food Hopper</a>
   <div>
@@ -35,12 +35,12 @@ $error       = $_GET['error'] ?? '';
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- Hero -->
 <section class="hero">
   <h1>Hungry? <span>Food Hopper</span> Has You Covered.</h1>
   <p>Order from local restaurants and get it delivered fast.</p>
 
-  <!-- Q1: Search restaurants (dynamic query on name / cuisine) -->
+  <!-- Search restaurants (dynamic query on name / cuisine) -->
   <form action="index.php" method="GET" class="search-bar">
     <input type="text" name="q" placeholder="Search by restaurant or cuisine…"
            value="<?= htmlspecialchars($searchTerm) ?>">
@@ -48,7 +48,7 @@ $error       = $_GET['error'] ?? '';
   </form>
 </section>
 
-<!-- RESTAURANT LISTING -->
+<!-- Restaurant Listing -->
 <div class="container">
 
   <?php if ($error === 'login_required'): ?>
