@@ -304,7 +304,7 @@ function authenticateRestaurant(string $email, string $password): ?array {
 // Helper Function: Get all restaurants (for homepage browse)
 function getAllRestaurants(): array {
     return getDB()->query(
-        "SELECT restaurant_id, restaurant_name, cuisine_type, restaurant_rating
+        "SELECT restaurant_id, restaurant_name, cuisine_type, restaurant_rating, restaurant_address
          FROM   Restaurant
          ORDER BY restaurant_rating DESC"
     )->fetchAll();
