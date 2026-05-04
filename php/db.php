@@ -3,7 +3,7 @@ function getDB() {
     static $pdo = null;
     if ($pdo === null) {
         $host = getenv('MYSQLHOST') ?: getenv('MYSQL_HOST');
-        $db   = getenv('MYSQLDATABASE' ?: getenv('MYSQL_DATABASE');
+        $db   = getenv('MYSQLDATABASE') ?: getenv('MYSQL_DATABASE');
         $user = getenv('MYSQLUSER') ?: getenv('MYSQL_USER');
         $pass = getenv('MYSQLPASSWORD') ?: getenv('MYSQL_PASSWORD');
         $port = getenv('MYSQLPORT') ?: getenv('MYSQSL_PORT');
