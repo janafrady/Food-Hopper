@@ -61,7 +61,7 @@ function getOrderHistory(int $customerId, string $statusFilter = ''): array {
                    r.cuisine_type,
                    p.payment_method,
                    p.payment_status
-            FROM   `Order`  o
+            FROM   Orders  o
             JOIN   Restaurant r ON o.restaurant_id = r.restaurant_id
             LEFT JOIN Payment  p ON o.order_id      = p.order_id
             WHERE  o.customer_id = :cid";
@@ -103,7 +103,7 @@ function getOrderDetails(int $orderId): array {
                 con.location        AS contractor_location,
                 p.payment_method,
                 p.payment_status
-         FROM   `Order`    o
+         FROM   Orders    o
          JOIN   Customer   c   ON o.customer_id   = c.customer_id
          JOIN   Restaurant r   ON o.restaurant_id = r.restaurant_id
          LEFT JOIN Contractor con ON o.contractor_id = con.contractor_id
@@ -161,7 +161,7 @@ function placeOrder(int $customerId, int $restaurantId, array $itemQuantities): 
 
         // Dynamic INSERT – values built from user selections
         $ins = $pdo->prepare(
-            "INSERT INTO `Order` (customer_id, restaurant_id, order_status, total_cost)
+            "INSERT INTO Orders (customer_id, restaurant_id, order_status, total_cost)
              VALUES (:cid, :rid, 'in-process', :total)"
         );
         $ins->execute([':cid' => $customerId, ':rid' => $restaurantId, ':total' => round($total, 2)]);
@@ -200,7 +200,7 @@ function updateOrderStatus(int $orderId, string $newStatus): bool {
 
     $pdo  = getDB();
     $stmt = $pdo->prepare(
-        "UPDATE `Order` SET order_status = :status WHERE order_id = :oid"
+        "UPDATE Orders SET order_status = :status WHERE order_id = :oid"
     );
     $stmt->execute([':status' => $newStatus, ':oid' => $orderId]);
     return $stmt->rowCount() > 0;
@@ -227,7 +227,7 @@ function getOrdersByStatus(int $userId, string $userType, string $status = ''): 
                    o.total_cost,
                    c.customer_name,
                    r.restaurant_name
-            FROM   `Order`    o
+            FROM   Orders    o
             JOIN   Customer   c ON o.customer_id   = c.customer_id
             JOIN   Restaurant r ON o.restaurant_id = r.restaurant_id
             WHERE  $col = :uid";
@@ -347,7 +347,7 @@ function toggleItemAvailability(int $itemId, int $available): bool {
 function assignContractor(int $orderId, int $contractorId): bool {
     $pdo  = getDB();
     $stmt = $pdo->prepare(
-        "UPDATE `Order` SET contractor_id = :cid WHERE order_id = :oid"
+        "UPDATE Orders SET contractor_id = :cid WHERE order_id = :oid"
     );
     $stmt->execute([':cid' => $contractorId, ':oid' => $orderId]);
     return $stmt->rowCount() > 0;
